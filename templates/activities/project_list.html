@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between">
+  <h3>Proyectos</h3>
+  <div>
+    <a class="btn btn-primary btn-sm" href="{% url 'project_create' %}">Nuevo proyecto</a>
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'activity_create' %}">Nueva actividad</a>
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'activity_log_create' %}">Registrar avance</a>
+  </div>
+</div>
+{% for p in projects %}
+  <div class="card my-3">
+    <div class="card-body">
+      <h5 class="card-title">{{p.name}}</h5>
+      <p class="card-text">{{p.description}}</p>
+      <table class="table table-sm">
+        <thead><tr><th>Actividad</th><th>Planificado</th><th>Progreso</th><th>Estado</th></tr></thead>
+        <tbody>
+          {% for a in p.activities.all %}
+            <tr>
+              <td>{{a.name}}</td>
+              <td>{{a.planned_start}} → {{a.planned_end}}</td>
+              <td>{{a.progress_percent}}%</td>
+              <td>{{a.get_status_display}}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="4">Sin actividades</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% empty %}
+  <p>No hay proyectos.</p>
+{% endfor %}
+{% endblock %}

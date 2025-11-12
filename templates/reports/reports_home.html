@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Reportes</h3>
+<ul>
+  <li><a href="{% url 'inventory_csv' %}">Descargar inventario (CSV)</a></li>
+  <li><a href="{% url 'activities_csv' %}">Descargar actividades (CSV)</a></li>
+</ul>
+{% endblock %}
